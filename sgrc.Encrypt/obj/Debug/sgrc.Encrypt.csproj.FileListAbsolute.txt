@@ -1,0 +1,7 @@
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\bin\Debug\sgrc.Encrypt.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\bin\Debug\sgrc.Encrypt.pdb
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\bin\Debug\AutoMapper.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\bin\Debug\AutoMapper.xml
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\obj\Debug\sgrc.Encrypt.csproj.CoreCompileInputs.cache
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\obj\Debug\sgrc.Encrypt.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.Encrypt\obj\Debug\sgrc.Encrypt.pdb

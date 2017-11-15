@@ -1,0 +1,417 @@
+﻿@{
+    <script runat='server' id='jsonData' type='text/data'>
+        @Html.Raw(@ViewBag.students)
+        @Html.Raw(@ViewBag.clientPrograms)
+</script>
+    
+}
+
+@model sgrc.DikizaCS.DAL.Client.Dto.ClientOutput
+<script src="~/scripts/_client/edit.js"></script>
+<div class="col-md-12">
+<!-- Begin: life time stats -->
+<div class="portlet light portlet-fit portlet-datatable bordered">
+<div class="portlet-title">
+    <div class="caption">
+
+        <span class="caption-subject font-dark sbold ">
+                        # @Model.Client.Id  | @Model.Client.Name
+                        <span class="hidden-xs">| Date Stamp: @Model.Client.CreationDateTimeS </span>
+                    </span>
+    </div>
+
+</div>
+<div class="portlet-body">
+<div class="tabbable-line">
+<ul class="nav nav-tabs nav-tabs-lg">
+
+    <li class="active">
+        <a href="#tab_1" data-toggle="tab" aria-expanded="false"> Client Info </a>
+    </li>
+    @*<li>
+        <a href="#tab_2" data-toggle="tab" aria-expanded="false"> Client Cridentials </a>
+    </li>*@
+    <li class="active">
+        <a href="#tab_2" data-toggle="tab" aria-expanded="false"> Programs </a>
+    </li>
+    <li class="">
+        <a href="#tab_3" data-toggle="tab" aria-expanded="false">
+            Students
+            <span class="badge badge-success">@ViewBag.StudentCounter</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="#tab_4" data-toggle="tab" aria-expanded="false"> Log Books </a>
+    </li>
+
+
+</ul>
+<div class="tab-content">
+
+<!--Client Info-->
+<div class="tab-pane active" id="tab_1">
+
+    <div class="portlet box blue-hoki">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-users"></i>Edit Client Information
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <div class="row">
+                <div class="col-md-12 crow">
+                    <!-- BEGIN FORM-->
+                    <div action="#">
+                        <div class="form-actions top">
+
+                            <button type="button" onclick="onEditClient(@ViewBag.Id)" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                        </div>
+                        <div class="form-body">
+                            <div class="form-group ">
+                                <label class="control-label">Organization Name</label>
+                                <input type="text" id="txtName" name="Name" class="form-control" value="@Model.Client.Name" placeholder="Organization Name">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label">Organization Phone</label>
+                                <input type="text" id="txtPhone" name="Phone" class="form-control" value="@Model.Client.PhoneNumber" placeholder="Organization Phone">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label">Organization Email</label>
+                                <input type="text" id="txtEmail" name="Email" class="form-control" value="@Model.Client.Email" placeholder="Organization Email">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Contact Name</label>
+
+                                <input type="text" id="txtContactName" name="ContactName" value="@Model.Client.ContactName" class="form-control" placeholder="Contact Name">
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label">Contact Surname</label>
+                                <input type="text" id="txtContactSurname" name="Surname" class="form-control" value="@Model.Client.ContactSurname" placeholder="Contact Surname">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Contact Phone</label>
+
+                                <input type="text" id="txtContactPhone" name="ContactPhone" class="form-control" value="@Model.Client.ContactPhone" placeholder="Contact Phone">
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Contact Email</label>
+
+                                <input type="text" id="txtContactEmail" name="ContactEmail" value="@Model.Client.ContactEmail" class="form-control" placeholder="Contact Email">
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Is Active</label><br/>
+                                @{
+                                    var isActive = Model.Client.IsActive ? "checked" : "";
+                                }
+                                <input type="checkbox" @isActive class="make-switch" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>">
+
+                            </div>
+
+                        </div>
+                        <div class="form-actions">
+
+                            <button type="button" onclick="onEditClient(@ViewBag.Id)" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                        </div>
+                    </div>
+                    <!-- END FORM-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+    <!--Programs-->
+    <div class="tab-pane" id="tab_2">
+        <div class="portlet box blue-hoki">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-users"></i>Programs
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                    <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN FORM-->
+                        <form action="#">
+                            <div class="form-actions top">
+
+                                <button type="button" data-toggle="modal" data-target="#ModalProgram" onclick="onRegisterProgram(@ViewBag.Id)" class="btn green pull-right" style="margin-right: 4px;">Create Program</button>
+
+                            </div>
+                            <div class="form-body">
+                                <table id="tblPrograms" class="table table-striped table-bordered table-hover  order-column dataTable"></table>
+
+
+                            </div>
+                            <div class="form-actions">
+
+                                <button type="button" data-toggle="modal" data-target="#Modal" onclick="onRegisterProgram(@ViewBag.Id)" class="btn green pull-right" style="margin-right: 4px;">Create Program</button>
+
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+<!--Client Cridentials-->
+@*<div class="tab-pane" id="tab_2">
+
+            <div class="portlet box blue-hoki">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-gear"></i>Edit Client Information
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                        <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN FORM-->
+                            <form action="#">
+                                <div class="form-actions top">
+                                    <button type="button" onclick="clear()" class="btn default pull-right">Cancel</button>
+                                    <button type="button" onclick="onEditClientCredantials(@ViewBag.Id)" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                                </div>
+                                <div class="form-body">
+                                    <div class="form-group ">
+                                        <label class="control-label">Organization Name</label>
+                                        <select data-toggle="tooltip" title="" data-original-title="Password Option" class="form-control" id="cboPasswordOption">
+                                            <option value="custom">Custom Password</option>
+                                            <option value="auto">Generate Password</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="divAutoPassword" style="display: none;">
+
+
+                                        <div class="form-group ">
+                                            <label class="control-label">Number Of Characters</label>
+                                            <input type="number" id="input-chars" name="input-chars" value="4" class="form-control spin" placeholder="Number of Characters">
+
+                                        </div>
+
+
+                                        <div class="form-group ">
+                                            <label for="input-nonalphanumerics" class="control-label">Number Of Non-Alphanumerics</label>
+                                            <input type="number" id="input-nonalphanumerics" name="input-nonalphanumerics" value="4" class="form-control spin" placeholder="Number of Non-Aphanumnerics">
+
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <button type="button" onclick="onGenerate()" class="btn btn-sm btn-primary"><i class="fa fa-gears"></i>&nbsp;Generate</button>
+                                            </div>
+                                        </div>
+                                        <!-- END Tabs Content -->
+
+                                    </div>
+
+                                    <div class="form-group" id="divManualPassword" style="display: block;">
+
+
+                                        <div class="form-group ">
+                                            <label class="control-label">Password</label>
+                                            <input type="text" id="txtPassword" name="input-chars" class="form-control" placeholder="Password">
+
+                                        </div>
+
+
+                                        <div class="form-group ">
+                                            <label class="control-label">Confirm Password</label>
+                                            <input type="text" id="txtConfirmPassword" class="form-control" placeholder="Confirm Password">
+
+                                        </div>
+
+
+
+
+                                        <!-- END Tabs Content -->
+
+                                    </div>
+
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" onclick="clear()" class="btn default pull-right">Cancel</button>
+                                    <button type="button" onclick="onEditClientCredantials(@ViewBag.Id)" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+</div>*@
+
+
+<!--Student Add & Edit-->
+<div class="tab-pane" id="tab_3">
+   
+            <div class="portlet box blue-hoki">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-users"></i>Student Information
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                        <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+                    </div>
+                </div>
+                <div class="portlet-body form">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN FORM-->
+                            <form action="#">
+                                <div class="form-actions top">
+
+                                    <button type="button" data-toggle="modal" data-target="#Modal" onclick="onRegisterStudent()" class="btn green pull-right" style="margin-right: 4px;">Create Student</button>
+
+                                </div>
+                                <div class="form-body">
+                                    <table id="tblStudents" class="table table-striped table-bordered table-hover  order-column dataTable"></table>
+
+
+                                </div>
+                                <div class="form-actions">
+
+                                    <button type="button" data-toggle="modal" data-target="#Modal" onclick="onRegisterStudent()" class="btn green pull-right" style="margin-right: 4px;">Create Student</button>
+
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                        </div>
+                          
+                        </div>
+                    </div>
+
+
+                </div>
+
+<!--Student Add & Edit-->
+<div class="tab-pane" id="tab_4">
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- End: life time stats -->
+</div>
+
+
+<input type="hidden" value="@ViewBag.Id" id="hf_clientId"/>
+<input type="hidden"  id="hf_studentId" />
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Student</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal form-bordered" onsubmit="return false;">
+                            <div class="form-group ">
+                                <label class="control-label"> Name</label>
+                                <input type="text" id="txtStudentName" name="Name" class="form-control" placeholder="Student Name">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label"> Surname</label>
+                                <input type="text" id="txtStudentSurname" name="Name" class="form-control" placeholder="Student Surname">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label"> Email</label>
+                                <input type="text" id="txtStudentEmail" name="Name" class="form-control" placeholder="Student Email">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label"> Phone</label>
+                                <input type="text" id="txtStudentPhoneNumber" name="Name" class="form-control" placeholder="Student Phone">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label"> Telephone</label>
+                                <input type="text" id="txtStudentTelephoneNumber" name="Name" class="form-control" placeholder="Student Telephone">
+                            </div>
+                            <div class="form-group form-actions">
+                                <div class="col-md-10 col-md-offset-3">
+                                    <button type="button" id="btnSave" class="btn green" style="display: none;" onclick="onSave(@ViewBag.Id)">Submit</button>
+                                    <button type="button" id="btnSaveChanges" class="btn green" style="display: block;" onclick="onSaveChanges()">Submit</button>
+                                    <button type="button" data-dismiss="modal" onclick="closeEditPop()" class="btn btn-warning">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                            
+                        </div>
+                       
+                    </div>
+
+                </div>
+            </div>
+</div>
+
+<style>
+    /*.stats {
+        display: none;
+    }*/
+
+
+
+    /*.col-md-12 .crow {
+        position: relative;
+        min-height: 1px;
+        padding-left: 35px;
+        padding-right: 35px;
+    }*/
+
+    .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+</style>

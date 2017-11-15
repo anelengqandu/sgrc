@@ -1,0 +1,360 @@
+﻿@{
+    Layout = "~/Areas/User/Views/Shared/_User&ClientLayout.cshtml";
+}
+
+@using WebGrease.Css.Ast.Selectors
+@model List<sgrc.DikizaCS.DAL.Logbook.Dto.LogbookDto>
+<link href="~/Resources/theme/assets/apps/css/todo-2.css" rel="stylesheet" />
+
+<script src="~/scripts/_student/logbook.js"></script>
+<div class="row">
+<div class="col-md-12">
+
+<!-- BEGIN TODO SIDEBAR -->
+<div class="todo-ui">
+
+<!-- BEGIN TODO CONTENT -->
+<div class="todo-content">
+<div class="portlet light bordered">
+<!-- PROJECT HEAD -->
+<div class="portlet-title">
+    <div class="caption">
+        <i class="icon-bar-chart font-green-sharp hide"></i>
+        <span class="caption-helper">Student:</span> &nbsp;
+        <span class="caption-subject font-green-sharp bold uppercase">@ViewBag.Fullname</span>
+    </div>
+
+</div>
+<!-- end PROJECT HEAD -->
+<div class="portlet-body">
+<div class="row">
+<div class="col-md-5 col-sm-4">
+    <div class="todo-tasklist">
+
+
+        @foreach (var book in Model)
+        {
+
+            string className = book.IsSubmited ? "fa fa-check" : "fa fa-times";
+
+            <div class="todo-tasklist-item todo-tasklist-item-border-green">
+
+                <div class="todo-tasklist-item-title">
+                   @book.ActivityType
+                    <a class="btn btn-circle btn-icon-only btn-default pull-right" onclick="onEditModal(@book.Id)" data-toggle="modal" data-target="#Modal" href="">
+                        <i class="icon-pencil"></i>
+                    </a>
+                    <input type="hidden" value="@book.Id" id="hf_logbookId"/>
+
+                    <a class="btn btn-circle btn-icon-only btn-default pull-right margin" onclick="onSaveActiveStatus(@book.Id)" href="javascript:;">
+                        <i class="@className"></i>
+                    </a>
+                    <a class="btn btn-circle btn-icon-only btn-default pull-right margin" onclick="onSaveDeleteStatus(@book.Id)"href="javascript:;">
+                        <i class="icon-trash"></i>
+                    </a>
+
+                </div>
+                <div class="todo-tasklist-item-text">
+                    <p style="text-align: justify;">
+                        <strong>Description</strong>:@book.ActivityDescription
+                        <br/><br/>
+                        <strong>Duration</strong>: @book.Time
+                        <br/>
+                        <strong>Task Week</strong>: @book.WeekStartS to @book.WeekEndDateS
+                    </p>
+                </div>
+                <div class="todo-tasklist-controls pull-left">
+                    <span class="todo-tasklist-date">
+                                                    <i class="fa fa-calendar"></i>Task Date @book.DateOfActivityS
+                                                </span>
+
+
+                </div>
+            </div>
+
+        }
+
+
+        @*<div class="todo-tasklist-item todo-tasklist-item-border-red">
+                                        <div class="todo-tasklist-item-title">
+                                            Internship Activity
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right" href="javascript:;">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right margin" href="javascript:;">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right margin" href="javascript:;">
+                                                <i class="icon-trash"></i>
+                                            </a>
+
+                                        </div>
+                                        <div class="todo-tasklist-item-text">
+                                            <p style="text-align: justify;">
+                                                <strong>Description</strong>:The quick brown fox jumped over the lazy brown do
+                                                The quick brown fox jumped over the lazy brown do
+                                                <br /><br />
+                                                <strong>Duration</strong>: 1h 2Min
+                                                <br />
+                                                <strong>Task Week</strong>: 02 Oct 2017 to 06 Oct 2017
+                                            </p>
+                                        </div>
+                                        <div class="todo-tasklist-controls pull-left">
+                                            <span class="todo-tasklist-date">
+                                                <i class="fa fa-calendar"></i>Task Date 21 Sep 2014
+                                            </span>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="todo-tasklist-item todo-tasklist-item-border-green">
+                                        <div class="todo-tasklist-item-title">
+                                            Internship Activity
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right" href="javascript:;">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right margin" href="javascript:;">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right margin" href="javascript:;">
+                                                <i class="icon-trash"></i>
+                                            </a>
+
+                                        </div>
+                                        <div class="todo-tasklist-item-text">
+                                            <p style="text-align: justify;">
+                                                <strong>Description</strong>:The quick brown fox jumped over the lazy brown do
+                                                The quick brown fox jumped over the lazy brown do
+                                                <br /><br />
+                                                <strong>Duration</strong>: 1h 2Min
+                                                <br />
+                                                <strong>Task Week</strong>: 02 Oct 2017 to 06 Oct 2017
+                                            </p>
+                                        </div>
+                                        <div class="todo-tasklist-controls pull-left">
+                                            <span class="todo-tasklist-date">
+                                                <i class="fa fa-calendar"></i>Task Date 21 Sep 2014
+                                            </span>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="todo-tasklist-item todo-tasklist-item-border-blue">
+                                        <div class="todo-tasklist-item-title">
+                                            Internship Activity
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right" href="javascript:;">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right margin" href="javascript:;">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                            <a class="btn btn-circle btn-icon-only btn-default pull-right margin" href="javascript:;">
+                                                <i class="icon-trash"></i>
+                                            </a>
+
+                                        </div>
+                                        <div class="todo-tasklist-item-text">
+                                            <p style="text-align: justify;">
+                                                <strong>Description</strong>:The quick brown fox jumped over the lazy brown do
+                                                The quick brown fox jumped over the lazy brown do
+                                                <br /><br />
+                                                <strong>Duration</strong>: 1h 2Min
+                                                <br />
+                                                <strong>Task Week</strong>: 02 Oct 2017 to 06 Oct 2017
+                                            </p>
+                                        </div>
+                                        <div class="todo-tasklist-controls pull-left">
+                                            <span class="todo-tasklist-date">
+                                                <i class="fa fa-calendar"></i>Task Date 21 Sep 2014
+                                            </span>
+
+
+                                        </div>
+                                    </div>*@
+
+    </div>
+</div>
+<div class="todo-tasklist-devider"> </div>
+<div class="col-md-7 col-sm-8">
+    <form action="#" class="form-horizontal">
+
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-equalizer font-red-sunglo"></i>
+                    <span class="caption-subject font-red-sunglo bold uppercase">Activity</span>
+                    <span class="caption-helper">create new activity</span>
+                </div>
+               
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <div action="#" class="form-horizontal">
+
+                    <div class="form-actions top">
+
+                        <button type="button" onclick="onSaveTime()" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                    </div>
+                    <div class="form-body">
+                        <div class="form-group ">
+                            <label class="control-label">Activity Date</label>
+                            <div class="input-icon">
+                                <i class="fa fa-calendar"></i>
+                                <input type="text" id="txtDateOfActivity" readonly="" class="form-control date" placeholder="dd MM yyyy">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Activity Type</label>
+
+                            <select class="form-control" id="cbActivityType">
+                                <option value="">Choose</option>
+                                <option value="Internship">Internship activity</option>
+                                <option value="Non-Internship">Other non internship activity</option>
+                            </select>
+                        </div>
+                        <div class="form-inline">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+
+                                        <input type="number" id="workedH" class="form-control" min="0" placeholder="Hours Worked"/>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="input-group">
+                                        <input type="number" id="workedM" class="form-control" min="0" placeholder="Minutes Worked"/>
+                                        <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Activity Description</label>
+
+
+                            <textarea id="txtDescription" name="Description" rows="9" class="form-control" placeholder="Activity Description"></textarea>
+
+                        </div>
+                        <div class="form-actions">
+
+                            <button type="button" onclick="onSaveTime()" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                        </div>
+                    </div>
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END TODO CONTENT -->
+</div>
+</div>
+<!-- END PAGE CONTENT-->
+</div>
+
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Time Logged</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="row crow">
+                    <div class="col-md-12">
+                        <form class="form-horizontal form-bordered" onsubmit="return false;">
+                            <div class="form-group ">
+                                <label class="control-label">Activity Date</label>
+                                <div class="input-icon">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" id="txtEditDateOfActivity" readonly=""  class="form-control date" placeholder="dd MM yyyy">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Activity Type</label>
+
+                                <select class="form-control" id="cbEditActivityType">
+                                    <option value="">Choose</option>
+                                    <option value="Internship">Internship activity</option>
+                                    <option value="Non-Internship">Other non internship activity</option>
+                                </select>
+                            </div>
+                            <div class="form-inline">
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+
+                                            <input type="number" id="workedHEdit" class="form-control" min="0" placeholder="Hours Worked" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <div class="input-group">
+                                            <input type="number" id="workedMEdit" class="form-control" min="0" placeholder="Minutes Worked" />
+                                            <span class="input-group-addon"><i class="fa fa-clock-o fa-fw"></i></span>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Activity Description</label>
+
+
+                                <textarea id="txtEditDescription" name="Description" rows="9" class="form-control" placeholder="Activity Description"></textarea>
+
+                            </div>
+                            <div class="form-group form-actions">
+                                <div class="col-md-10 col-md-offset-3">
+                                    <button type="button" id="btnSave" class="btn green"  onclick="onSaveEditTime()">Submit</button>
+                                    
+                                    <button type="button" data-dismiss="modal" onclick="closeEditPop()" class="btn btn-warning">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .row {
+        margin-left: -15px;
+        margin-right: -1px;
+    }
+
+     .row .crow{
+        margin-left: -1px;
+        margin-right: -1px;
+    }
+
+    .margin {
+        margin-right: 5px;
+    }
+</style>

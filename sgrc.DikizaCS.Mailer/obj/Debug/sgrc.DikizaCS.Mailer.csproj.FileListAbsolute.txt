@@ -1,0 +1,5 @@
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.Mailer\bin\Debug\sgrc.DikizaCS.Mailer.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.Mailer\bin\Debug\sgrc.DikizaCS.Mailer.pdb
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.Mailer\obj\Debug\sgrc.DikizaCS.Mailer.csprojResolveAssemblyReference.cache
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.Mailer\obj\Debug\sgrc.DikizaCS.Mailer.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.Mailer\obj\Debug\sgrc.DikizaCS.Mailer.pdb

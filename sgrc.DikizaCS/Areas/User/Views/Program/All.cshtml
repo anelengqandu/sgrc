@@ -1,0 +1,42 @@
+﻿@{
+    <script runat='server' id='jsonData' type='text/data'>
+        @Html.Raw(@ViewBag.data)
+    </script>
+}
+
+
+
+<script src="~/scripts/_program/all.js"></script>
+<div class="col-md-12">
+    <div class="tabbable-line boxless tabbable-reversed">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gear"></i>All Programs
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                            <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table id="tblPrograms" class="table table-striped table-bordered table-hover  order-column dataTable"></table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /*.stats {
+        display: none;
+    }*/
+</style>

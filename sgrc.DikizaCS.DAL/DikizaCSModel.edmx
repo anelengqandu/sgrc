@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DikizaCSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="db_Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="SecurityStampId" Type="nvarchar(max)" />
+          <Property Name="IsAccountConfirmed" Type="bit" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactSurname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactEmail" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="db_LogBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="WeekStartDate" Type="datetime" />
+          <Property Name="WeekEndDate" Type="datetime" />
+          <Property Name="TimeHours" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TimeMinutes" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="WeekNumber" Type="int" />
+          <Property Name="ActivityDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ActivityType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfActivity" Type="datetime" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="IsSubmited" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeletionDate" Type="datetime" />
+          <Property Name="LastdateModified" Type="datetime" />
+          <Property Name="ModifiedByUser" Type="bigint" />
+          <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="db_Program">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="bigint" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedByUser" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedByUser" Type="bigint" />
+        </EntityType>
+        <EntityType Name="db_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="db_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="bigint" />
+          <Property Name="ProgramId" Type="bigint" />
+          <Property Name="SecurityStamp" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="TelephoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailConfirmationCode" Type="nvarchar(max)" />
+          <Property Name="IsEmailConfirmed" Type="bit" />
+          <Property Name="LastLoginDateTime" Type="datetime" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="db_UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_db_LogBook_db_Program">
+          <End Role="db_Program" Type="Self.db_Program" Multiplicity="1" />
+          <End Role="db_LogBook" Type="Self.db_LogBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Program">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_LogBook">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_LogBook_db_User">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="1" />
+          <End Role="db_LogBook" Type="Self.db_LogBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_LogBook">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_Program_db_Client">
+          <End Role="db_Client" Type="Self.db_Client" Multiplicity="0..1" />
+          <End Role="db_Program" Type="Self.db_Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_Program">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_User_db_Client">
+          <End Role="db_Client" Type="Self.db_Client" Multiplicity="0..1" />
+          <End Role="db_User" Type="Self.db_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_User">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_User_db_Program">
+          <End Role="db_Program" Type="Self.db_Program" Multiplicity="0..1" />
+          <End Role="db_User" Type="Self.db_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Program">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_User">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_UserRole_db_Role">
+          <End Role="db_Role" Type="Self.db_Role" Multiplicity="1" />
+          <End Role="db_UserRole" Type="Self.db_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_UserRole_db_User">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="1" />
+          <End Role="db_UserRole" Type="Self.db_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DikizaCSModelStoreContainer">
+          <EntitySet Name="db_Client" EntityType="Self.db_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_LogBook" EntityType="Self.db_LogBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_Program" EntityType="Self.db_Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_Role" EntityType="Self.db_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_User" EntityType="Self.db_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_UserRole" EntityType="Self.db_UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_db_LogBook_db_Program" Association="Self.FK_db_LogBook_db_Program">
+            <End Role="db_Program" EntitySet="db_Program" />
+            <End Role="db_LogBook" EntitySet="db_LogBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_LogBook_db_User" Association="Self.FK_db_LogBook_db_User">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="db_LogBook" EntitySet="db_LogBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_Program_db_Client" Association="Self.FK_db_Program_db_Client">
+            <End Role="db_Client" EntitySet="db_Client" />
+            <End Role="db_Program" EntitySet="db_Program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_User_db_Client" Association="Self.FK_db_User_db_Client">
+            <End Role="db_Client" EntitySet="db_Client" />
+            <End Role="db_User" EntitySet="db_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_User_db_Program" Association="Self.FK_db_User_db_Program">
+            <End Role="db_Program" EntitySet="db_Program" />
+            <End Role="db_User" EntitySet="db_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_UserRole_db_Role" Association="Self.FK_db_UserRole_db_Role">
+            <End Role="db_Role" EntitySet="db_Role" />
+            <End Role="db_UserRole" EntitySet="db_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_UserRole_db_User" Association="Self.FK_db_UserRole_db_User">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="db_UserRole" EntitySet="db_UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DikizaCSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DikizaCSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="db_Client" EntityType="DikizaCSModel.db_Client" />
+          <EntitySet Name="db_LogBook" EntityType="DikizaCSModel.db_LogBook" />
+          <EntitySet Name="db_Program" EntityType="DikizaCSModel.db_Program" />
+          <EntitySet Name="db_Role" EntityType="DikizaCSModel.db_Role" />
+          <EntitySet Name="db_User" EntityType="DikizaCSModel.db_User" />
+          <EntitySet Name="db_UserRole" EntityType="DikizaCSModel.db_UserRole" />
+          <AssociationSet Name="FK_db_Program_db_Client" Association="DikizaCSModel.FK_db_Program_db_Client">
+            <End Role="db_Client" EntitySet="db_Client" />
+            <End Role="db_Program" EntitySet="db_Program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_User_db_Client" Association="DikizaCSModel.FK_db_User_db_Client">
+            <End Role="db_Client" EntitySet="db_Client" />
+            <End Role="db_User" EntitySet="db_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_LogBook_db_Program" Association="DikizaCSModel.FK_db_LogBook_db_Program">
+            <End Role="db_Program" EntitySet="db_Program" />
+            <End Role="db_LogBook" EntitySet="db_LogBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_LogBook_db_User" Association="DikizaCSModel.FK_db_LogBook_db_User">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="db_LogBook" EntitySet="db_LogBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_User_db_Program" Association="DikizaCSModel.FK_db_User_db_Program">
+            <End Role="db_Program" EntitySet="db_Program" />
+            <End Role="db_User" EntitySet="db_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_UserRole_db_Role" Association="DikizaCSModel.FK_db_UserRole_db_Role">
+            <End Role="db_Role" EntitySet="db_Role" />
+            <End Role="db_UserRole" EntitySet="db_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_db_UserRole_db_User" Association="DikizaCSModel.FK_db_UserRole_db_User">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="db_UserRole" EntitySet="db_UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="db_Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStampId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAccountConfirmed" Type="Boolean" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactSurname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="db_Program" Relationship="DikizaCSModel.FK_db_Program_db_Client" FromRole="db_Client" ToRole="db_Program" />
+          <NavigationProperty Name="db_User" Relationship="DikizaCSModel.FK_db_User_db_Client" FromRole="db_Client" ToRole="db_User" />
+        </EntityType>
+        <EntityType Name="db_LogBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramId" Type="Int64" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="WeekStartDate" Type="DateTime" Precision="3" />
+          <Property Name="WeekEndDate" Type="DateTime" Precision="3" />
+          <Property Name="TimeHours" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TimeMinutes" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="WeekNumber" Type="Int32" />
+          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfActivity" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSubmited" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DeletionDate" Type="DateTime" Precision="3" />
+          <Property Name="LastdateModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedByUser" Type="Int64" />
+          <Property Name="CreationDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="db_Program" Relationship="DikizaCSModel.FK_db_LogBook_db_Program" FromRole="db_LogBook" ToRole="db_Program" />
+          <NavigationProperty Name="db_User" Relationship="DikizaCSModel.FK_db_LogBook_db_User" FromRole="db_LogBook" ToRole="db_User" />
+        </EntityType>
+        <EntityType Name="db_Program">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int64" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedByUser" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedByUser" Type="Int64" />
+          <NavigationProperty Name="db_Client" Relationship="DikizaCSModel.FK_db_Program_db_Client" FromRole="db_Program" ToRole="db_Client" />
+          <NavigationProperty Name="db_LogBook" Relationship="DikizaCSModel.FK_db_LogBook_db_Program" FromRole="db_Program" ToRole="db_LogBook" />
+          <NavigationProperty Name="db_User" Relationship="DikizaCSModel.FK_db_User_db_Program" FromRole="db_Program" ToRole="db_User" />
+        </EntityType>
+        <EntityType Name="db_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="db_UserRole" Relationship="DikizaCSModel.FK_db_UserRole_db_Role" FromRole="db_Role" ToRole="db_UserRole" />
+        </EntityType>
+        <EntityType Name="db_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int64" />
+          <Property Name="ProgramId" Type="Int64" />
+          <Property Name="SecurityStamp" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelephoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmailConfirmed" Type="Boolean" />
+          <Property Name="LastLoginDateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="db_Client" Relationship="DikizaCSModel.FK_db_User_db_Client" FromRole="db_User" ToRole="db_Client" />
+          <NavigationProperty Name="db_LogBook" Relationship="DikizaCSModel.FK_db_LogBook_db_User" FromRole="db_User" ToRole="db_LogBook" />
+          <NavigationProperty Name="db_Program" Relationship="DikizaCSModel.FK_db_User_db_Program" FromRole="db_User" ToRole="db_Program" />
+          <NavigationProperty Name="db_UserRole" Relationship="DikizaCSModel.FK_db_UserRole_db_User" FromRole="db_User" ToRole="db_UserRole" />
+        </EntityType>
+        <EntityType Name="db_UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int64" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="db_Role" Relationship="DikizaCSModel.FK_db_UserRole_db_Role" FromRole="db_UserRole" ToRole="db_Role" />
+          <NavigationProperty Name="db_User" Relationship="DikizaCSModel.FK_db_UserRole_db_User" FromRole="db_UserRole" ToRole="db_User" />
+        </EntityType>
+        <Association Name="FK_db_Program_db_Client">
+          <End Type="DikizaCSModel.db_Client" Role="db_Client" Multiplicity="0..1" />
+          <End Type="DikizaCSModel.db_Program" Role="db_Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_Program">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_User_db_Client">
+          <End Type="DikizaCSModel.db_Client" Role="db_Client" Multiplicity="0..1" />
+          <End Type="DikizaCSModel.db_User" Role="db_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_User">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_LogBook_db_Program">
+          <End Type="DikizaCSModel.db_Program" Role="db_Program" Multiplicity="1" />
+          <End Type="DikizaCSModel.db_LogBook" Role="db_LogBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Program">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_LogBook">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_LogBook_db_User">
+          <End Type="DikizaCSModel.db_User" Role="db_User" Multiplicity="1" />
+          <End Type="DikizaCSModel.db_LogBook" Role="db_LogBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_LogBook">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_User_db_Program">
+          <End Type="DikizaCSModel.db_Program" Role="db_Program" Multiplicity="0..1" />
+          <End Type="DikizaCSModel.db_User" Role="db_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Program">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_User">
+              <PropertyRef Name="ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_UserRole_db_Role">
+          <End Type="DikizaCSModel.db_Role" Role="db_Role" Multiplicity="1" />
+          <End Type="DikizaCSModel.db_UserRole" Role="db_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_db_UserRole_db_User">
+          <End Type="DikizaCSModel.db_User" Role="db_User" Multiplicity="1" />
+          <End Type="DikizaCSModel.db_UserRole" Role="db_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="db_UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DikizaCSModelStoreContainer" CdmEntityContainer="DikizaCSEntities">
+          <EntitySetMapping Name="db_Client">
+            <EntityTypeMapping TypeName="DikizaCSModel.db_Client">
+              <MappingFragment StoreEntitySet="db_Client">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="ContactSurname" ColumnName="ContactSurname" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAccountConfirmed" ColumnName="IsAccountConfirmed" />
+                <ScalarProperty Name="SecurityStampId" ColumnName="SecurityStampId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_LogBook">
+            <EntityTypeMapping TypeName="DikizaCSModel.db_LogBook">
+              <MappingFragment StoreEntitySet="db_LogBook">
+                <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+                <ScalarProperty Name="ModifiedByUser" ColumnName="ModifiedByUser" />
+                <ScalarProperty Name="LastdateModified" ColumnName="LastdateModified" />
+                <ScalarProperty Name="DeletionDate" ColumnName="DeletionDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSubmited" ColumnName="IsSubmited" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="DateOfActivity" ColumnName="DateOfActivity" />
+                <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
+                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+                <ScalarProperty Name="WeekNumber" ColumnName="WeekNumber" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+                <ScalarProperty Name="TimeHours" ColumnName="TimeHours" />
+                <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+                <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_Program">
+            <EntityTypeMapping TypeName="DikizaCSModel.db_Program">
+              <MappingFragment StoreEntitySet="db_Program">
+                <ScalarProperty Name="ModifiedByUser" ColumnName="ModifiedByUser" />
+                <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_Role">
+            <EntityTypeMapping TypeName="DikizaCSModel.db_Role">
+              <MappingFragment StoreEntitySet="db_Role">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_User">
+            <EntityTypeMapping TypeName="DikizaCSModel.db_User">
+              <MappingFragment StoreEntitySet="db_User">
+                <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="LastLoginDateTime" ColumnName="LastLoginDateTime" />
+                <ScalarProperty Name="IsEmailConfirmed" ColumnName="IsEmailConfirmed" />
+                <ScalarProperty Name="EmailConfirmationCode" ColumnName="EmailConfirmationCode" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_UserRole">
+            <EntityTypeMapping TypeName="DikizaCSModel.db_UserRole">
+              <MappingFragment StoreEntitySet="db_UserRole">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

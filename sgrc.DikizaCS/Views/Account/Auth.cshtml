@@ -1,0 +1,78 @@
+﻿
+<link href="~/scripts/_account/login.css" rel="stylesheet" />
+<script src="~/scripts/_account/login.js"></script>
+
+
+<div class="login-content">
+    <h1>DCS Admin Portal</h1>
+    <p>
+        For security reasons, please log out and close your web browser when you are done accessing services that require authentication.
+
+        We recommend using chrome as your browser.
+    </p>
+    <form action="javascript:;" class="login-form" method="post">
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            <span>Enter any username and password. </span>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <input class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Email" name="username" id="username" required />
+            </div>
+            <div class="col-xs-6">
+                <input class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" name="password" id="password" required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="rem-password">
+                    <div class="forgot-password">
+                        <a href="/register" class="forget-password">Register new account.</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 text-right">
+                @{
+                    if (ViewBag.Result == "Success")
+                    {
+                        <button class="btn green" type="submit">Sign In</button>
+
+                    }
+                    else
+                    {
+                        <div class="notice notice-danger">
+                            <strong>Invalid Authentication Token</strong> <br />
+                            Error on confirmation/either something went wrong or the authentication token has changed. Please contact system administrator.
+                            <a href="mailto:info@sgrc.co.za">info@sgrc.co.za</a>
+                        </div>
+                    }
+                }
+               
+            </div>
+        </div>
+    </form>
+
+</div>
+<style>
+    .user-login-5 .login-container > .login-content {
+        margin-top: 24%;
+    }
+    .notice {
+    padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+
+
+
+.notice-danger {
+    border-color: #d73814;
+}
+.notice-danger>strong {
+    color: #d73814;
+}
+</style>

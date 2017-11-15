@@ -1,0 +1,5 @@
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.SMS\bin\Debug\sgrc.DikizaCS.SMS.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.SMS\bin\Debug\sgrc.DikizaCS.SMS.pdb
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.SMS\obj\Debug\sgrc.DikizaCS.SMS.csproj.CoreCompileInputs.cache
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.SMS\obj\Debug\sgrc.DikizaCS.SMS.dll
+C:\Projects\DikizaCS\sgrc.DikizaCS\sgrc.DikizaCS.SMS\obj\Debug\sgrc.DikizaCS.SMS.pdb

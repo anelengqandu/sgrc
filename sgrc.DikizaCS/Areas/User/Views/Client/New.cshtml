@@ -1,0 +1,91 @@
+﻿@{
+}
+
+<script src="~/scripts/_client/new.js"></script>
+
+
+<div class="col-md-12">
+    <div class="tabbable-line boxless tabbable-reversed">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gear"></i>Create Program
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                            <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form action="#">
+                            <div class="form-actions top">
+                                <button type="button" onclick="clear()" class="btn default pull-right">Cancel</button>
+                                <button type="button" onclick="onRegisterClient()" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group ">
+                                    <label class="control-label">Organization Name</label>
+                                    <input type="text" id="txtName" name="Name" class="form-control" placeholder="Organization Name">
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label">Organization Phone</label>
+                                    <input type="text" id="txtPhone" name="Phone" class="form-control" placeholder="Organization Phone">
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label">Organization Email</label>
+                                    <input type="text" id="txtEmail" name="Email" class="form-control" placeholder="Organization Email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Contact Name</label>
+
+                                    <input type="text" id="txtContactName" name="ContactName" class="form-control" placeholder="Contact Name">
+
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label">Contact Surname</label>
+                                    <input type="text" id="txtContactSurname" name="Surname" class="form-control" placeholder="Contact Surname">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Contact Phone</label>
+
+                                    <input type="text" id="txtContactPhone" name="ContactPhone" class="form-control" placeholder="Contact Phone">
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Contact Email</label>
+
+                                    <input type="text" id="txtContactEmail" name="ContactEmail" class="form-control" placeholder="Contact Email">
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Is Active</label><br />
+
+                                    <input type="checkbox" class="make-switch" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>">
+
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" onclick="clear()" class="btn default pull-right">Cancel</button>
+                                <button type="button" onclick="onRegisterClient()" class="btn green pull-right" style="margin-right: 4px;">Submit</button>
+
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    /*.stats {
+        display:none;
+    }*/
+</style>

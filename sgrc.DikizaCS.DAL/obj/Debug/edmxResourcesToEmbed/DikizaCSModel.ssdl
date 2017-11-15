@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DikizaCSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="db_Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="SecurityStampId" Type="nvarchar(max)" />
+    <Property Name="IsAccountConfirmed" Type="bit" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContactName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContactSurname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContactPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContactEmail" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="db_LogBook">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="WeekStartDate" Type="datetime" />
+    <Property Name="WeekEndDate" Type="datetime" />
+    <Property Name="TimeHours" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="TimeMinutes" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="WeekNumber" Type="int" />
+    <Property Name="ActivityDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ActivityType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateOfActivity" Type="datetime" />
+    <Property Name="Remarks" Type="nvarchar(max)" />
+    <Property Name="IsSubmited" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DeletionDate" Type="datetime" />
+    <Property Name="LastdateModified" Type="datetime" />
+    <Property Name="ModifiedByUser" Type="bigint" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="db_Program">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="bigint" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatedByUser" Type="bigint" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedByUser" Type="bigint" />
+  </EntityType>
+  <EntityType Name="db_Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="db_User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="bigint" />
+    <Property Name="ProgramId" Type="bigint" />
+    <Property Name="SecurityStamp" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="TelephoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailConfirmationCode" Type="nvarchar(max)" />
+    <Property Name="IsEmailConfirmed" Type="bit" />
+    <Property Name="LastLoginDateTime" Type="datetime" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="LastModifiedDate" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="db_UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_db_LogBook_db_Program">
+    <End Role="db_Program" Type="Self.db_Program" Multiplicity="1" />
+    <End Role="db_LogBook" Type="Self.db_LogBook" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_LogBook">
+        <PropertyRef Name="ProgramId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_LogBook_db_User">
+    <End Role="db_User" Type="Self.db_User" Multiplicity="1" />
+    <End Role="db_LogBook" Type="Self.db_LogBook" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_LogBook">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_Program_db_Client">
+    <End Role="db_Client" Type="Self.db_Client" Multiplicity="0..1" />
+    <End Role="db_Program" Type="Self.db_Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_Program">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_User_db_Client">
+    <End Role="db_Client" Type="Self.db_Client" Multiplicity="0..1" />
+    <End Role="db_User" Type="Self.db_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_User">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_User_db_Program">
+    <End Role="db_Program" Type="Self.db_Program" Multiplicity="0..1" />
+    <End Role="db_User" Type="Self.db_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_User">
+        <PropertyRef Name="ProgramId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_UserRole_db_Role">
+    <End Role="db_Role" Type="Self.db_Role" Multiplicity="1" />
+    <End Role="db_UserRole" Type="Self.db_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_UserRole_db_User">
+    <End Role="db_User" Type="Self.db_User" Multiplicity="1" />
+    <End Role="db_UserRole" Type="Self.db_UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="db_User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="db_UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DikizaCSModelStoreContainer">
+    <EntitySet Name="db_Client" EntityType="Self.db_Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="db_LogBook" EntityType="Self.db_LogBook" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="db_Program" EntityType="Self.db_Program" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="db_Role" EntityType="Self.db_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="db_User" EntityType="Self.db_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="db_UserRole" EntityType="Self.db_UserRole" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_db_LogBook_db_Program" Association="Self.FK_db_LogBook_db_Program">
+      <End Role="db_Program" EntitySet="db_Program" />
+      <End Role="db_LogBook" EntitySet="db_LogBook" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_LogBook_db_User" Association="Self.FK_db_LogBook_db_User">
+      <End Role="db_User" EntitySet="db_User" />
+      <End Role="db_LogBook" EntitySet="db_LogBook" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_Program_db_Client" Association="Self.FK_db_Program_db_Client">
+      <End Role="db_Client" EntitySet="db_Client" />
+      <End Role="db_Program" EntitySet="db_Program" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_User_db_Client" Association="Self.FK_db_User_db_Client">
+      <End Role="db_Client" EntitySet="db_Client" />
+      <End Role="db_User" EntitySet="db_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_User_db_Program" Association="Self.FK_db_User_db_Program">
+      <End Role="db_Program" EntitySet="db_Program" />
+      <End Role="db_User" EntitySet="db_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_UserRole_db_Role" Association="Self.FK_db_UserRole_db_Role">
+      <End Role="db_Role" EntitySet="db_Role" />
+      <End Role="db_UserRole" EntitySet="db_UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_UserRole_db_User" Association="Self.FK_db_UserRole_db_User">
+      <End Role="db_User" EntitySet="db_User" />
+      <End Role="db_UserRole" EntitySet="db_UserRole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

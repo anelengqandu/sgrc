@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DikizaCSModelStoreContainer" CdmEntityContainer="DikizaCSEntities">
+    <EntitySetMapping Name="db_Client">
+      <EntityTypeMapping TypeName="DikizaCSModel.db_Client">
+        <MappingFragment StoreEntitySet="db_Client">
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+          <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+          <ScalarProperty Name="ContactSurname" ColumnName="ContactSurname" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsAccountConfirmed" ColumnName="IsAccountConfirmed" />
+          <ScalarProperty Name="SecurityStampId" ColumnName="SecurityStampId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_LogBook">
+      <EntityTypeMapping TypeName="DikizaCSModel.db_LogBook">
+        <MappingFragment StoreEntitySet="db_LogBook">
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="ModifiedByUser" ColumnName="ModifiedByUser" />
+          <ScalarProperty Name="LastdateModified" ColumnName="LastdateModified" />
+          <ScalarProperty Name="DeletionDate" ColumnName="DeletionDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsSubmited" ColumnName="IsSubmited" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="DateOfActivity" ColumnName="DateOfActivity" />
+          <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
+          <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+          <ScalarProperty Name="WeekNumber" ColumnName="WeekNumber" />
+          <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+          <ScalarProperty Name="TimeHours" ColumnName="TimeHours" />
+          <ScalarProperty Name="WeekEndDate" ColumnName="WeekEndDate" />
+          <ScalarProperty Name="WeekStartDate" ColumnName="WeekStartDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_Program">
+      <EntityTypeMapping TypeName="DikizaCSModel.db_Program">
+        <MappingFragment StoreEntitySet="db_Program">
+          <ScalarProperty Name="ModifiedByUser" ColumnName="ModifiedByUser" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_Role">
+      <EntityTypeMapping TypeName="DikizaCSModel.db_Role">
+        <MappingFragment StoreEntitySet="db_Role">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_User">
+      <EntityTypeMapping TypeName="DikizaCSModel.db_User">
+        <MappingFragment StoreEntitySet="db_User">
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="LastLoginDateTime" ColumnName="LastLoginDateTime" />
+          <ScalarProperty Name="IsEmailConfirmed" ColumnName="IsEmailConfirmed" />
+          <ScalarProperty Name="EmailConfirmationCode" ColumnName="EmailConfirmationCode" />
+          <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_UserRole">
+      <EntityTypeMapping TypeName="DikizaCSModel.db_UserRole">
+        <MappingFragment StoreEntitySet="db_UserRole">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

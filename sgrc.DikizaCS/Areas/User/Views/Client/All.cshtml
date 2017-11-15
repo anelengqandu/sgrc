@@ -1,0 +1,111 @@
+﻿@{
+    <script runat='server' id='jsonData' type='text/data'>
+        @Html.Raw(@ViewBag.data)
+    </script>
+}
+
+@model sgrc.DikizaCS.DAL.Client.Dto.ClientDto
+
+
+
+<div class="col-md-12">
+    <div class="tabbable-line boxless tabbable-reversed">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gear"></i>All Clients
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+
+                            <a href="javascript:;" onclick="reaload()" class="reload" data-original-title="" title=""> </a>
+
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-actions top">
+                            <a href="/user/createclient/"  class="btn green pull-right" style="margin: 0 4px 5px 0;">Create New Client</a>
+
+                 
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                @{
+                                    foreach (var client in Model.ClientList.ToList())
+                                    {
+
+                                        string tick = "";
+                                        if (@client.IsActive)
+                                        {
+                                            tick = "check";
+                                        }
+                                        <div class="col-sm-4">
+                                            <div class="tiles">
+
+                                                <div class="tile double selected bg-blue-madison" onclick="clientEdit(@client.Id);">
+                                                    <div class="corner"> </div>
+                                                    <div class="@tick"> </div>
+                                                    <div class="tile-body">
+                                                        <img src="~/Resources/theme/assets/pages/media/profile/photo1.jpg" alt="">
+                                                        <h4>@client.Name </h4>
+
+                                                        <div class="c-section">
+
+                                                            <p>
+                                                                <strong>C</strong>&nbsp;@client.ContactName @client.ContactSurname
+                                                                <br>
+                                                                <strong>T</strong>&nbsp;<a class="contact-links" href="tel:@client.PhoneNumber">@client.PhoneNumber</a>
+                                                                <br>
+                                                                <strong>C.P</strong>&nbsp;<a class="contact-links" href="tel:@client.ContactPhone"> @client.ContactPhone</a>
+                                                                <br>
+                                                                <strong>E</strong>&nbsp;<a class="contact-links" href="mailto:@client.ContactEmail">@client.ContactEmail</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tile-object">
+                                                        <div class="name">Registration Date</div>
+                                                        <div class="number"> @client.CreationDateTimeS</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+                            </div>
+
+
+                            <div class="form-actions top">
+                                <a href="/user/createclient/" class="btn green pull-right" style="margin: 5px 13px 5px 0;">Create New Client</a>
+
+
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .contact-links {
+        color: #fff;
+    }
+</style>
+
+<script>
+    //redirect to View
+    function clientEdit(id) {
+
+        window.location.href = '/User/Client/Edit/?Id=' + id;
+
+    }
+</script>
