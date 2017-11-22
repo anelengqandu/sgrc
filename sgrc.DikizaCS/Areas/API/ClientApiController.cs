@@ -4,7 +4,10 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using sgrc.DikizaCS.Areas.User.Models;
 using sgrc.DikizaCS.DAL;
 using sgrc.DikizaCS.DAL.Client;
@@ -15,6 +18,7 @@ using sgrc.DikizaCS.Mailer.Model;
 using sgrc.Encrypt;
 using sgrc.DikizaCS.SMS;
 using sgrc.DikizaCS.SMS.Model;
+using sgrc.DikizaCS.Utility;
 
 namespace sgrc.DikizaCS.Areas.API
 {
@@ -169,5 +173,18 @@ namespace sgrc.DikizaCS.Areas.API
 
         }
 
+      
+        [HttpGet]
+        [Route("api/getclients/{sSearch}")]
+        public object Clients(string sSearch)
+        {
+           // DBResult result;
+           var  result =  _clientRepository.GetAll(sSearch);
+            if (result.ClientList.Count > 0)
+            {
+                return new DBResult { Status = "Success", DescripText = "", Success = true };
+            }
+            return new DBResult { Status = "Fail", DescripText = "No data found", Success = false };
+        }
     }
 }

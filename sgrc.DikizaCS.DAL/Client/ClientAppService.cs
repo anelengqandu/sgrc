@@ -99,7 +99,7 @@ namespace sgrc.DikizaCS.DAL.Client
             }
             return new DBResult { Status = !hasError ? "Success" : "Fail", DescripText = errorText };
         }
-        public ClientDto GetAll()
+        public ClientDto GetAll(string sSearch)
         {
             var qClients = from rowC in DataAccess.metadata.db_Client
                            select new ClientDto
@@ -115,6 +115,18 @@ namespace sgrc.DikizaCS.DAL.Client
                                CreationDateTime = rowC.CreationDate,
                                IsActive = rowC.IsActive
                            };
+            if (!string.IsNullOrEmpty(sSearch))
+                qClients = from row in qClients
+                    where row.Name.Contains(sSearch)
+                          || row.ContactName.Contains(sSearch)
+                          || row.Email.Contains(sSearch)
+                          || row.PhoneNumber.Contains(sSearch)
+                          || row.ContactSurname.Contains(sSearch)
+                          || row.ContactEmail.Contains(sSearch)
+                          || row.ContactPhone.Contains(sSearch)
+                    select row;
+
+
             var fClients = qClients.OrderByDescending(d=>d.CreationDateTime).ToList();
            
             return new ClientDto

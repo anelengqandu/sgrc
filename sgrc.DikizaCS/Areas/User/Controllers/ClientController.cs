@@ -36,7 +36,7 @@ namespace sgrc.DikizaCS.Areas.User.Controllers
             ViewBag.Email = this.LoggedInEmail();
             ViewBag.UserId = this.LoggedInId();
             ViewBag.Fullname = this.LoggedInName();
-            var data = _clientRepository.GetAll();
+            var data = _clientRepository.GetAll("");
             return View(data);
         }
 
