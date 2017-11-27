@@ -48,49 +48,55 @@
                         <br/>
                         <div class="row">
                             <div class="col-sm-12">
-                                @{
-                                    foreach (var client in Model.ClientList.ToList())
-                                    {
-
-                                        string tick = "";
-                                        if (@client.IsActive)
+                                <div id="divPageLoad">
+                                    @{
+                                        foreach (var client in Model.ClientList.ToList())
                                         {
-                                            tick = "check";
-                                        }
-                                        <div class="col-sm-4">
-                                            <div class="tiles">
 
-                                                <div class="tile double selected bg-blue-madison" onclick="clientEdit(@client.Id);">
-                                                    <div class="corner"> </div>
-                                                    <div class="@tick"> </div>
-                                                    <div class="tile-body">
-                                                        <img src="~/Resources/theme/assets/pages/media/profile/photo1.jpg" alt="">
-                                                        <h4>@client.Name </h4>
+                                            string tick = "";
+                                            if (@client.IsActive)
+                                            {
+                                                tick = "check";
+                                            }
+                                            <div class="col-sm-4">
+                                                <div class="tiles">
 
-                                                        <div class="c-section">
+                                                    <div class="tile double selected bg-blue-madison" onclick="clientEdit(@client.Id);">
+                                                        <div class="corner"> </div>
+                                                        <div class="@tick"> </div>
+                                                        <div class="tile-body">
+                                                            <img src="~/Resources/theme/assets/pages/media/profile/photo1.jpg" alt="">
+                                                            <h4>@client.Name </h4>
 
-                                                            <p>
-                                                                <strong>C</strong>&nbsp;@client.ContactName @client.ContactSurname
-                                                                <br>
-                                                                <strong>T</strong>&nbsp;<a class="contact-links" href="tel:@client.PhoneNumber">@client.PhoneNumber</a>
-                                                                <br>
-                                                                <strong>C.P</strong>&nbsp;<a class="contact-links" href="tel:@client.ContactPhone"> @client.ContactPhone</a>
-                                                                <br>
-                                                                <strong>E</strong>&nbsp;<a class="contact-links" href="mailto:@client.ContactEmail">@client.ContactEmail</a>
-                                                            </p>
+                                                            <div class="c-section">
+
+                                                                <p>
+                                                                    <strong>C</strong>&nbsp;@client.ContactName @client.ContactSurname
+                                                                    <br>
+                                                                    <strong>T</strong>&nbsp;<a class="contact-links" href="tel:@client.PhoneNumber">@client.PhoneNumber</a>
+                                                                    <br>
+                                                                    <strong>C.P</strong>&nbsp;<a class="contact-links" href="tel:@client.ContactPhone"> @client.ContactPhone</a>
+                                                                    <br>
+                                                                    <strong>E</strong>&nbsp;<a class="contact-links" href="mailto:@client.ContactEmail">@client.ContactEmail</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tile-object">
+                                                            <div class="name">Registration Date</div>
+                                                            <div class="number"> @client.CreationDateTimeS</div>
                                                         </div>
                                                     </div>
-                                                    <div class="tile-object">
-                                                        <div class="name">Registration Date</div>
-                                                        <div class="number"> @client.CreationDateTimeS</div>
-                                                    </div>
+
                                                 </div>
-
                                             </div>
-                                        </div>
 
+                                        }
                                     }
-                                }
+                                </div>
+                                <div id="divOnSearchLoad">
+
+                                </div>
+                               
                             </div>
                             <div class="col-md-12">
                                 <div class="form-actions top">
@@ -119,30 +125,83 @@
 </style>
 
 <script>
-    
+
     $(document).ready(function () {
-      
+
         var successF = null;
         var errorF = null;
-     
+
 
 
         $('#txtSearch').keyup(function () {
 
             sgrc.ajax.get('/api/getclients/' + $('#txtSearch').val(), successF, errorF);
             successF = function (result) {
+               
                 if (result.Success) {
                     $('#loader').hide();
-                    debugger;
-                    //Have to redraw
+                    $('#divPageLoad').hide();
+                    $("#divOnSearchLoad").show();
+                    var html = '';
+
+
+                    $.each(result.Object, function (idx, item) {
+                       
+                        var path;
+                       // if (item.ImageUrl === null || item.ImageUrl === undefined) {
+                            path = "/../Resources/theme/assets/pages/media/profile/photo1.jpg";
+                       // } else {
+                           // path = item.ImageUrl;
+                       // }
+                     
+
+                          var tick;
+                                            if (item.IsActive)
+                                            {
+                                                tick = "check";
+                                            }
+                                            html += ' <div class="col-sm-4">';
+                                            html += '<div class="tiles">';
+
+                                            html += '<div class="tile double selected bg-blue-madison" onclick="clientEdit(' + item.Id+');">';
+                                            html += '<div class="corner"> </div>';
+                                            html += '<div class="' + tick+'"> </div>';
+                                            html += '<div class="tile-body">';
+                                            html += '<img src="' + path + '" alt="' + item.Name+'">';
+                                            html += '<h4>' + item.Name+'</h4>';
+
+                                            html += '<div class="c-section">';
+
+                                            html += '<p>';
+                                                                   html += ' <strong>C</strong>&nbsp;'+item.ContactName+" "+item.ContactSurname;
+                                                                   html += ' <br>';
+                                                                   html += ' <strong>T</strong>&nbsp;<a class="contact-links" href="tel:'+item.PhoneNumber+'">'+item.PhoneNumber+'</a>';
+                                                                   html += ' <br>';
+                                                                   html += ' <strong>C.P</strong>&nbsp;<a class="contact-links" href="tel:'+item.ContactPhone+'">'+item.ContactPhone+'</a>';
+                                                                   html += ' <br>';
+                                                                   html += ' <strong>E</strong>&nbsp;<a class="contact-links" href="mailto:' + item.ContactEmail + '">' + item.ContactEmail+'</a>';
+                                                                   html += '</p>';
+                                                                   html += '</div>';
+                                                                   html += '</div>';
+                                                                   html += '<div class="tile-object">';
+                                                                   html += '<div class="name">Registration Date</div>';
+                                                                   html += '<div class="number">'+item.CreationDateTimeS+'</div>';
+                                                                   html += ' </div>';
+                                                                   html += '</div>';
+
+                                                                   html += ' </div>';
+                                                                   html += ' </div>';
+
+                    });
+                    $('#divOnSearchLoad').html(html);
                 }
-               
+
             }
             errorF = function (result) {
-               
-                sgrc.Growl(result.DescripText, "Error occured", "warning", 9000);
+              
+            //    sgrc.Growl(result.DescripText, "Error occured", "warning", 9000);
             }
-            
+
         });
     });
 

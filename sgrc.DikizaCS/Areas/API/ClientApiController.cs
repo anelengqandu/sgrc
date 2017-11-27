@@ -178,13 +178,9 @@ namespace sgrc.DikizaCS.Areas.API
         [Route("api/getclients/{sSearch}")]
         public object Clients(string sSearch)
         {
-           // DBResult result;
+
            var  result =  _clientRepository.GetAll(sSearch);
-            if (result.ClientList.Count > 0)
-            {
-                return new DBResult { Status = "Success", DescripText = "", Success = true };
-            }
-            return new DBResult { Status = "Fail", DescripText = "No data found", Success = false };
+            return result.ClientList.Count > 0 ? new DBResult { Status = "Success", DescripText = "", Success = true,Object = result.ClientList} : new DBResult { Status = "Fail", DescripText = "No data found", Success = false };
         }
     }
 }
