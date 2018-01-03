@@ -175,7 +175,7 @@ namespace sgrc.DikizaCS.Areas.API
 
       
         [HttpGet]
-        [Route("api/getclients/{sSearch}")]
+        [Route("api/getclients/{sSearch?}")]
         public object Clients(string sSearch)
         {
 

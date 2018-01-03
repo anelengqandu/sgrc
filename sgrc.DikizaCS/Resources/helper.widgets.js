@@ -11,7 +11,8 @@ sgrc.event = {};
 sgrc.button = {};
 sgrc.valid8r = {};
 sgrc.widgets.loading = {};
-
+var successF = null;
+var errorF = null;
 
 //Boostrap growl notifactions
 sgrc.Growl = function (body, header, growlType, timedelay) {

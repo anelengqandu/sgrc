@@ -32,6 +32,19 @@ namespace sgrc.DikizaCS.DAL.Program
                             CreatedByUser = input.CreatedByUser,
 
                         };
+                        if (input.ClientId>0) {
+                             newProgram = new db_Program()
+                            {
+                                 ClientId=input.ClientId,
+                                Name = input.Name,
+                                Description = input.Description,
+                                IsActive = false,
+                                CreationDateTime = DateTime.Now,
+                                IsDeleted = false,
+                                CreatedByUser = input.CreatedByUser,
+
+                            };
+                        }
                         results = await newProgram._insert();
                         if (!results.Success)
                         {

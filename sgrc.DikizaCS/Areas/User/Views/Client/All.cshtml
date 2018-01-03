@@ -96,6 +96,10 @@
                                 <div id="divOnSearchLoad">
 
                                 </div>
+
+                                <div id="divOnEmptyResults">
+
+                                </div>
                                
                             </div>
                             <div class="col-md-12">
@@ -130,75 +134,91 @@
 
         var successF = null;
         var errorF = null;
-
-
-
         $('#txtSearch').keyup(function () {
-
-            sgrc.ajax.get('/api/getclients/' + $('#txtSearch').val(), successF, errorF);
+            var sSearch = $('#txtSearch').val()=="" ? "-1" : $('#txtSearch').val();
+            sgrc.ajax.get('/api/getclients/' + sSearch, successF, errorF);
             successF = function (result) {
-               
-                if (result.Success) {
+
+                if (result.Object === null) {
                     $('#loader').hide();
                     $('#divPageLoad').hide();
-                    $("#divOnSearchLoad").show();
+                    $("#divOnSearchLoad").hide();
+                    $("#divOnEmptyResults").show();
                     var html = '';
+                    html += '<div class="row">';
+                   html += '<div class="col-md-8 page-404 pull-right">';
+                   html += '<div class="number font-green"> <h1>404<br/>Oops!</h1>  </div>';
+                   html += '<div class="details">';                 
+                   html += '<p> No data available make sure spelling is correct';
+                   html += '<br>';
+                   html += '</div>';
+                   html += '</div>';
+                   html += '</div>';
+                   $('#divOnEmptyResults').html(html);
+                } else {
+
+                    if (result.Success) {
+                        $('#loader').hide();
+                        $('#divPageLoad').hide();
+                        $("#divOnEmptyResults").hide();
+                        $("#divOnSearchLoad").show();
+                        var html = '';
 
 
-                    $.each(result.Object, function (idx, item) {
-                       
-                        var path;
-                       // if (item.ImageUrl === null || item.ImageUrl === undefined) {
+                        $.each(result.Object, function (idx, item) {
+                            var path;
+                            // if (item.ImageUrl === null || item.ImageUrl === undefined) {
                             path = "/../Resources/theme/assets/pages/media/profile/photo1.jpg";
-                       // } else {
-                           // path = item.ImageUrl;
-                       // }
-                     
+                            // } else {
+                            // path = item.ImageUrl;
+                            // }
 
-                          var tick;
-                                            if (item.IsActive)
-                                            {
-                                                tick = "check";
-                                            }
-                                            html += ' <div class="col-sm-4">';
-                                            html += '<div class="tiles">';
 
-                                            html += '<div class="tile double selected bg-blue-madison" onclick="clientEdit(' + item.Id+');">';
-                                            html += '<div class="corner"> </div>';
-                                            html += '<div class="' + tick+'"> </div>';
-                                            html += '<div class="tile-body">';
-                                            html += '<img src="' + path + '" alt="' + item.Name+'">';
-                                            html += '<h4>' + item.Name+'</h4>';
+                            var tick;
+                            if (item.IsActive) {
+                                tick = "check";
+                            }
+                            html += ' <div class="col-sm-4">';
+                            html += '<div class="tiles">';
 
-                                            html += '<div class="c-section">';
+                            html += '<div class="tile double selected bg-blue-madison" onclick="clientEdit(' + item.Id + ');">';
+                            html += '<div class="corner"> </div>';
+                            html += '<div class="' + tick + '"> </div>';
+                            html += '<div class="tile-body">';
+                            html += '<img src="' + path + '" alt="' + item.Name + '">';
+                            html += '<h4>' + item.Name + '</h4>';
 
-                                            html += '<p>';
-                                                                   html += ' <strong>C</strong>&nbsp;'+item.ContactName+" "+item.ContactSurname;
-                                                                   html += ' <br>';
-                                                                   html += ' <strong>T</strong>&nbsp;<a class="contact-links" href="tel:'+item.PhoneNumber+'">'+item.PhoneNumber+'</a>';
-                                                                   html += ' <br>';
-                                                                   html += ' <strong>C.P</strong>&nbsp;<a class="contact-links" href="tel:'+item.ContactPhone+'">'+item.ContactPhone+'</a>';
-                                                                   html += ' <br>';
-                                                                   html += ' <strong>E</strong>&nbsp;<a class="contact-links" href="mailto:' + item.ContactEmail + '">' + item.ContactEmail+'</a>';
-                                                                   html += '</p>';
-                                                                   html += '</div>';
-                                                                   html += '</div>';
-                                                                   html += '<div class="tile-object">';
-                                                                   html += '<div class="name">Registration Date</div>';
-                                                                   html += '<div class="number">'+item.CreationDateTimeS+'</div>';
-                                                                   html += ' </div>';
-                                                                   html += '</div>';
+                            html += '<div class="c-section">';
 
-                                                                   html += ' </div>';
-                                                                   html += ' </div>';
+                            html += '<p>';
+                            html += ' <strong>C</strong>&nbsp;' + item.ContactName + " " + item.ContactSurname;
+                            html += ' <br>';
+                            html += ' <strong>T</strong>&nbsp;<a class="contact-links" href="tel:' + item.PhoneNumber + '">' + item.PhoneNumber + '</a>';
+                            html += ' <br>';
+                            html += ' <strong>C.P</strong>&nbsp;<a class="contact-links" href="tel:' + item.ContactPhone + '">' + item.ContactPhone + '</a>';
+                            html += ' <br>';
+                            html += ' <strong>E</strong>&nbsp;<a class="contact-links" href="mailto:' + item.ContactEmail + '">' + item.ContactEmail + '</a>';
+                            html += '</p>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<div class="tile-object">';
+                            html += '<div class="name">Registration Date</div>';
+                            html += '<div class="number">' + item.CreationDateTimeS + '</div>';
+                            html += ' </div>';
+                            html += '</div>';
 
-                    });
-                    $('#divOnSearchLoad').html(html);
+                            html += ' </div>';
+                            html += ' </div>';
+
+                        });
+                        $('#divOnSearchLoad').html(html);
+                    }
                 }
+
 
             }
             errorF = function (result) {
-              
+               
             //    sgrc.Growl(result.DescripText, "Error occured", "warning", 9000);
             }
 

@@ -115,16 +115,36 @@ namespace sgrc.DikizaCS.DAL.Client
                                CreationDateTime = rowC.CreationDate,
                                IsActive = rowC.IsActive
                            };
-            if (!string.IsNullOrEmpty(sSearch))
+            if (sSearch != "-1") {
                 qClients = from row in qClients
-                    where row.Name.Contains(sSearch)
-                          || row.ContactName.Contains(sSearch)
-                          || row.Email.Contains(sSearch)
-                          || row.PhoneNumber.Contains(sSearch)
-                          || row.ContactSurname.Contains(sSearch)
-                          || row.ContactEmail.Contains(sSearch)
-                          || row.ContactPhone.Contains(sSearch)
-                    select row;
+                           where row.Name.Contains(sSearch)
+                                 || row.ContactName.Contains(sSearch)
+                                 || row.Email.Contains(sSearch)
+                                 || row.PhoneNumber.Contains(sSearch)
+                                 || row.ContactSurname.Contains(sSearch)
+                                 || row.ContactEmail.Contains(sSearch)
+                                 || row.ContactPhone.Contains(sSearch)
+                           select row;
+            }
+
+            //    if (!string.IsNullOrEmpty(sSearch))
+            //{
+            //    qClients = from row in qClients
+            //               where row.Name.Contains(sSearch)
+            //                     || row.ContactName.Contains(sSearch)
+            //                     || row.Email.Contains(sSearch)
+            //                     || row.PhoneNumber.Contains(sSearch)
+            //                     || row.ContactSurname.Contains(sSearch)
+            //                     || row.ContactEmail.Contains(sSearch)
+            //                     || row.ContactPhone.Contains(sSearch)
+            //               select row;
+            //}
+            //else if(sSearch==null)
+            //{
+            //    qClients = from row in qClients
+            //               select row;
+            //}
+              
 
 
             var fClients = qClients.OrderByDescending(d=>d.CreationDateTime).ToList();

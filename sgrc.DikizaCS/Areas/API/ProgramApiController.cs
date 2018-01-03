@@ -63,7 +63,7 @@ namespace sgrc.DikizaCS.Areas.API
             {
                 Name = program.Name,
                 Description = program.Description,
-                
+                ClientId=program.ClientId
             };
             var result = _programRepository.CreateOrUpdateProgram(newProgram);
 

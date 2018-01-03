@@ -20,6 +20,6 @@ namespace sgrc.DikizaCS.DAL.Program.Dto
         public DateTime ModifiedDate { get; set; }
         public string ModifiedDateS => ModifiedDate.ToString("dd MM yyyy");
         public DateTime CreationDateTime { get; set; }
-        public string CreationDateTimeS => CreationDateTime.ToString("dd MM yyyy");
+        public string CreationDateTimeS => CreationDateTime.ToString("dd MMM yyyy");
     }
 }
